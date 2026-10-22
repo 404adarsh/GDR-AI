@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gdr"
+version = "0.1.0"
+description = "GDR AI - Jarvis-style personal assistant for Linux, Windows, macOS, and Android"
+readme = "README.md"
+authors = [{ name = "GDR" }]
+requires-python = ">=3.11"
+dependencies = [
+    "sarvamai",
+    "sounddevice",
+    "numpy",
+    "faster-whisper",
+    "playwright",
+    "piper-tts",
+    "webrtcvad-wheels",
+    "openwakeword",
+    "fastapi",
+    "uvicorn",
+    "keyring",
+    "tomli-w",
+    "croniter",
+    "python-dateutil",
+    "requests",
+    "soundfile",
+    "edge-tts",
+    "gtts",
+    "pycaw; sys_platform == 'win32'",
+    "comtypes; sys_platform == 'win32'",
+]
+
+[project.urls]
+Homepage = "https://github.com/404adarsh/GDR-AI"
+Repository = "https://github.com/404adarsh/GDR-AI.git"
+Issues = "https://github.com/404adarsh/GDR-AI/issues"
+
+[project.scripts]
+gdr = "gdr.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["gdr*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+filterwarnings = [
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+]
+

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" width="100%" height="100%">
+  <defs>
+    <radialGradient id="eyeGradAoi" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </radialGradient>
+    <linearGradient id="hairGradAoi" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="70%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="aoiSkin" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="aoiCloth" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Back Hair -->
+  <path d="M 120 160 C 85 240, 75 350, 90 410 C 115 375, 135 320, 140 280 L 260 280 C 265 320, 285 375, 310 410 C 325 350, 315 240, 280 160 Z" fill="url(#hairGradAoi)"/>
+
+  <!-- Tech Cyber Headset Band -->
+  <path d="M 120 220 C 115 150, 150 115, 200 115 C 250 115, 285 150, 280 220" stroke="#0ea5e9" stroke-width="7" fill="none"/>
+
+  <!-- Neck & Tech Hoodie -->
+  <path d="M 175 290 L 175 330 C 130 345, 90 380, 70 440 L 330 440 C 310 380, 270 345, 225 330 L 225 290 Z" fill="url(#aoiCloth)"/>
+  <path d="M 175 290 L 200 335 L 225 290 Z" fill="url(#aoiSkin)"/>
+  <path d="M 120 400 L 200 440 L 280 400" stroke="#0ea5e9" stroke-width="3" fill="none" opacity="0.8"/>
+
+  <!-- Head Base -->
+  <path d="M 130 200 C 125 260, 160 315, 200 315 C 240 315, 275 260, 270 200 C 268 140, 132 140, 130 200 Z" fill="url(#aoiSkin)"/>
+
+  <!-- Ears & Earpieces -->
+  <ellipse cx="128" cy="235" rx="9" ry="15" fill="#e2e8f0"/>
+  <ellipse cx="272" cy="235" rx="9" ry="15" fill="#e2e8f0"/>
+  <rect x="114" y="215" width="16" height="30" rx="8" fill="#0284c7"/>
+  <rect x="270" y="215" width="16" height="30" rx="8" fill="#0284c7"/>
+  <circle cx="278" cy="230" r="4" fill="#38bdf8"/>
+
+  <!-- Soft Blush -->
+  <ellipse cx="148" cy="254" rx="12" ry="6" fill="#38bdf8" opacity="0.25"/>
+  <ellipse cx="252" cy="254" rx="12" ry="6" fill="#38bdf8" opacity="0.25"/>
+
+  <!-- Nose -->
+  <circle cx="200" cy="265" r="2" fill="#0284c7" opacity="0.4"/>
+
+  <!-- Dynamic Eyes -->
+  <g id="aoi-eyes-left">
+            <ellipse cx="160" cy="225" rx="14" ry="21" fill="#0c4a6e"/>
+            <ellipse cx="160" cy="227" rx="12" ry="17" fill="url(#eyeGradAoi)"/>
+            <circle cx="156" cy="217" r="5" fill="#ffffff"/>
+            <circle cx="166" cy="232" r="2.5" fill="#ffffff"/>
+            <path d="M 143 204 Q 160 196 177 204" stroke="#0f172a" stroke-width="4" fill="none" stroke-linecap="round"/>
+        </g>
+  <g id="aoi-eyes-right">
+            <ellipse cx="240" cy="225" rx="14" ry="21" fill="#0c4a6e"/>
+            <ellipse cx="240" cy="227" rx="12" ry="17" fill="url(#eyeGradAoi)"/>
+            <circle cx="236" cy="217" r="5" fill="#ffffff"/>
+            <circle cx="246" cy="232" r="2.5" fill="#ffffff"/>
+            <path d="M 223 204 Q 240 196 257 204" stroke="#0f172a" stroke-width="4" fill="none" stroke-linecap="round"/>
+        </g>
+
+  <!-- Dynamic Mouth -->
+  <g id="aoi-mouth"><path d="M 188 281 Q 200 304 212 281 Z" fill="#0284c7"/><path d="M 192 292 Q 200 298 208 292 Z" fill="#38bdf8"/></g>
+
+  <!-- Front Hair -->
+  <path d="M 125 185 C 135 150, 165 130, 200 130 C 235 130, 265 150, 275 185 C 285 220, 275 250, 270 270 C 265 235, 255 210, 250 200 C 240 225, 225 240, 215 245 C 210 220, 202 200, 200 200 C 198 200, 190 220, 185 245 C 175 240, 160 225, 150 200 C 145 210, 135 235, 130 270 C 125 250, 115 220, 125 185 Z" fill="url(#hairGradAoi)"/>
+  <!-- Cyan Hair Highlight Strand -->
+  <path d="M 148 160 Q 155 210 162 235" stroke="#38bdf8" stroke-width="3" fill="none" opacity="0.8"/>
+</svg>

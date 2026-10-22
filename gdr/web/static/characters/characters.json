@@ -1,0 +1,144 @@
+{
+  "characters": [
+    {
+      "id": "cat",
+      "displayName": "Cat Companion",
+      "gender": "neutral",
+      "bio": "Cute, expressive, legally clean open-source AI cat companion",
+      "style": "clean_vector_svg",
+      "defaultExpression": "neutral",
+      "expressions": {
+        "neutral": "/static/characters/cat/neutral.svg",
+        "listening": "/static/characters/cat/listening.svg",
+        "speaking": "/static/characters/cat/speaking.svg",
+        "happy": "/static/characters/cat/happy.svg",
+        "thinking": "/static/characters/cat/thinking.svg",
+        "curious": "/static/characters/cat/curious.svg",
+        "surprised": "/static/characters/cat/surprised.svg",
+        "comforting": "/static/characters/cat/comforting.svg",
+        "teasing": "/static/characters/cat/teasing.svg",
+        "sleepy": "/static/characters/cat/sleepy.svg",
+        "idle": "/static/characters/cat/neutral.svg",
+        "excited": "/static/characters/cat/happy.svg",
+        "blushing": "/static/characters/cat/happy.svg",
+        "shy": "/static/characters/cat/comforting.svg",
+        "confused": "/static/characters/cat/curious.svg",
+        "sad": "/static/characters/cat/sleepy.svg",
+        "encouraging": "/static/characters/cat/happy.svg",
+        "interrupted": "/static/characters/cat/listening.svg"
+      },
+      "license": {
+        "name": "Creative Commons Zero (CC0) / MIT Permissive Open Asset",
+        "source": "GDR Open Source Companion Vector Suite",
+        "attribution": "GDR Open Source Project"
+      },
+      "name": "Cat",
+      "role": "Cute, expressive open-source companion"
+    },
+    {
+      "id": "aarushi",
+      "displayName": "Aarushi",
+      "gender": "female",
+      "bio": "Warm, caring, emotionally expressive anime girl companion",
+      "style": "anime_vector_hd",
+      "defaultExpression": "neutral",
+      "expressions": {
+        "neutral": "/static/characters/aarushi/neutral.svg",
+        "listening": "/static/characters/aarushi/listening.svg",
+        "speaking": "/static/characters/aarushi/speaking.svg",
+        "happy": "/static/characters/aarushi/happy.svg",
+        "thinking": "/static/characters/aarushi/thinking.svg",
+        "curious": "/static/characters/aarushi/curious.svg",
+        "surprised": "/static/characters/aarushi/surprised.svg",
+        "comforting": "/static/characters/aarushi/comforting.svg",
+        "teasing": "/static/characters/aarushi/teasing.svg",
+        "sleepy": "/static/characters/aarushi/sleepy.svg",
+        "idle": "/static/characters/aarushi/neutral.svg",
+        "excited": "/static/characters/aarushi/happy.svg",
+        "blushing": "/static/characters/aarushi/teasing.svg",
+        "shy": "/static/characters/aarushi/teasing.svg",
+        "confused": "/static/characters/aarushi/curious.svg",
+        "sad": "/static/characters/aarushi/comforting.svg",
+        "encouraging": "/static/characters/aarushi/happy.svg",
+        "interrupted": "/static/characters/aarushi/listening.svg"
+      },
+      "license": {
+        "name": "Creative Commons Zero (CC0) / MIT Permissive Open Asset",
+        "source": "GDR-IDE Native Character Art System",
+        "attribution": "GDR-IDE Character Design Studio"
+      },
+      "name": "Aarushi",
+      "role": "Warm, caring, emotionally expressive anime girl companion"
+    },
+    {
+      "id": "aoi",
+      "displayName": "Aoi",
+      "gender": "female",
+      "bio": "Cool, analytical, tech-savvy anime companion with cyber headset",
+      "style": "anime_vector_hd",
+      "defaultExpression": "neutral",
+      "expressions": {
+        "neutral": "/static/characters/aoi/neutral.svg",
+        "listening": "/static/characters/aoi/listening.svg",
+        "speaking": "/static/characters/aoi/speaking.svg",
+        "happy": "/static/characters/aoi/happy.svg",
+        "thinking": "/static/characters/aoi/thinking.svg",
+        "curious": "/static/characters/aoi/curious.svg",
+        "surprised": "/static/characters/aoi/surprised.svg",
+        "comforting": "/static/characters/aoi/comforting.svg",
+        "teasing": "/static/characters/aoi/teasing.svg",
+        "sleepy": "/static/characters/aoi/sleepy.svg",
+        "idle": "/static/characters/aoi/neutral.svg",
+        "excited": "/static/characters/aoi/happy.svg",
+        "blushing": "/static/characters/aoi/teasing.svg",
+        "shy": "/static/characters/aoi/teasing.svg",
+        "confused": "/static/characters/aoi/curious.svg",
+        "sad": "/static/characters/aoi/comforting.svg",
+        "encouraging": "/static/characters/aoi/happy.svg",
+        "interrupted": "/static/characters/aoi/listening.svg"
+      },
+      "license": {
+        "name": "Creative Commons Zero (CC0) / MIT Permissive Open Asset",
+        "source": "GDR-IDE Native Character Art System",
+        "attribution": "GDR-IDE Character Design Studio"
+      },
+      "name": "Aoi",
+      "role": "Cool, analytical, tech-savvy anime companion with cyber headset"
+    },
+    {
+      "id": "kenji",
+      "displayName": "Kenji",
+      "gender": "male",
+      "bio": "Friendly, energetic, witty anime male companion",
+      "style": "anime_vector_hd",
+      "defaultExpression": "neutral",
+      "expressions": {
+        "neutral": "/static/characters/kenji/neutral.svg",
+        "listening": "/static/characters/kenji/listening.svg",
+        "speaking": "/static/characters/kenji/speaking.svg",
+        "happy": "/static/characters/kenji/happy.svg",
+        "thinking": "/static/characters/kenji/thinking.svg",
+        "curious": "/static/characters/kenji/curious.svg",
+        "surprised": "/static/characters/kenji/surprised.svg",
+        "comforting": "/static/characters/kenji/comforting.svg",
+        "teasing": "/static/characters/kenji/teasing.svg",
+        "sleepy": "/static/characters/kenji/sleepy.svg",
+        "idle": "/static/characters/kenji/neutral.svg",
+        "excited": "/static/characters/kenji/happy.svg",
+        "blushing": "/static/characters/kenji/teasing.svg",
+        "shy": "/static/characters/kenji/teasing.svg",
+        "confused": "/static/characters/kenji/curious.svg",
+        "sad": "/static/characters/kenji/comforting.svg",
+        "encouraging": "/static/characters/kenji/happy.svg",
+        "interrupted": "/static/characters/kenji/listening.svg"
+      },
+      "license": {
+        "name": "Creative Commons Zero (CC0) / MIT Permissive Open Asset",
+        "source": "GDR-IDE Native Character Art System",
+        "attribution": "GDR-IDE Character Design Studio"
+      },
+      "name": "Kenji",
+      "role": "Friendly, energetic, witty anime male companion"
+    }
+  ]
+}

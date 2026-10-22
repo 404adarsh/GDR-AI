@@ -1,0 +1,111 @@
+# GDR AI Configuration File (~/.config/gdr/config.toml)
+# Note: Secrets (API keys, passwords, tokens) are NEVER stored in this file.
+# Secrets come only from environment variables or the system keyring.
+
+[general]
+agent_name = "GDR-AI"
+user_name = "User"
+tone = "sweet, flirty, affectionate, loving companion and Jarvis-style assistant"
+timezone = "Asia/Kolkata"
+language = "en"  # "en", "hi", "hinglish"
+
+[provider]
+default = "sarvam"  # "sarvam", "ollama", "claude", "openai"
+model = "sarvam-105b-conversations"
+max_steps = 24
+max_tokens_per_step = 1500
+memory_limit = 30
+
+[models]
+vram_ceiling_mib = 3800               # Capped < 3.8 GB to prevent OS stutter
+ram_reserve_floor_mib = 4000          # 4 GB floor for OS & UI
+idle_unload_timeout_seconds = 300     # 5 min auto-unload
+thermal_guard_cutoff_c = 85           # Automatic thermal throttle
+
+[voice]
+enabled = true
+vad_engine = "webrtcvad"              # "webrtcvad" or "silero"
+vad_sensitivity = 2                   # 0 (least sensitive) to 3 (most sensitive)
+wake_word = "hey jarvis"              # OpenWakeWord local model
+wake_threshold = 0.45
+stt_engine = "faster-whisper"          # "faster-whisper" or "sarvam"
+stt_model = "tiny"                    # "tiny", "base", "small"
+tts_engine = "piper"                  # "piper", "espeak", "sarvam"
+tts_piper_model_path = "~/.local/share/gdr/models/piper/en_US-lessac-medium.onnx"
+sarvam_tts_speaker = "shubh"
+mic_volume_boost = 0.85
+
+[briefing]
+alarm_time = "07:30"
+loud_alarm = true
+push_channel = "desktop"              # "desktop", "telegram", "ntfy"
+enable_phone_call = false             # Stage-3 Twilio escalation call
+snooze_minutes = 10
+escalation_delay_seconds = 180
+news_topics = ["tech", "ai", "cybersecurity"]
+quiet_hours_start = "22:00"
+quiet_hours_end = "07:00"
+
+[night_shift]
+enabled = true
+auto_approval_tier = "AUTO"
+step_budget = 50
+max_retries = 3
+allowed_folders = ["~/Downloads", "~/Documents", "~/Desktop"]
+
+[channels]
+# 1. MarkanM Connect (Priority Bot Platform)
+markanm_enabled = false
+markanm_room_id = ""                      # Auto-detected dynamically from incoming chats
+allowed_markanm_username = ""             # Security whitelist (e.g. "@yourname")
+allowed_markanm_user_id = ""
+
+# 2. Telegram Bot
+telegram_enabled = false
+telegram_chat_id = ""
+allowed_telegram_username = ""           # Security whitelist
+allowed_telegram_user_id = 0             # Numeric user ID
+
+push_backend = "desktop"                 # "desktop", "ntfy", "pushover"
+ntfy_topic = "gdr-alerts"
+
+[google]
+testing_mode = true                   # Note: Google OAuth testing apps expire in 7 days
+auto_triage = true
+default_scopes_readonly = true
+auto_draft_replies = true
+
+[messaging]
+mark_as_ai = true                     # Appends "[Sent via GDR AI assistant]" footer
+opt_in_unofficial_whatsapp = false    # DISABLED by default. Unofficial bridge risks bans!
+rate_limit_per_minute = 5
+
+[camera]
+enabled = true
+fps = 2                               # Low-power 1-2 FPS presence loop
+privacy_mode = false
+enable_guest_recognition = true
+break_reminder_minutes = 120
+enforce_non_authentication = true     # Face NEVER approves payments or actions
+
+[workspace]
+allowed_directories = ["~/projects"]
+block_secret_patterns = [".env", "*.pem", "id_rsa", "*.key", "credentials.json"]
+
+[safety]
+require_approval_sensitive = true
+spending_cap_daily_usd = 5.0
+sudo_allowlist = [
+    "systemctl restart ",
+    "systemctl stop ",
+    "systemctl start ",
+    "apt update",
+    "rtcwake"
+]
+
+[web]
+host = "127.0.0.1"
+port = 8844
+allow_tailscale = true
+autostart_gui = true
+theme = "dark"

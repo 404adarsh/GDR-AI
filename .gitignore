@@ -1,0 +1,78 @@
+# Environment and Secrets (CRITICAL: Never commit credentials)
+.env
+.secrets.env
+*.env
+secrets.env
+*.pem
+*.key
+*.cert
+*.id_rsa
+*.id_ed25519
+
+# Personal History and Runtime Databases
+gdr/data/
+gdr_history.csv
+gdr_history.jsonl
+*.csv
+*.jsonl
+*.db
+*.sqlite
+*.sqlite3
+requests.db
+
+# Backup and Checkpoint files
+*.backup
+*.bak
+gdr_checkpoint.json
+
+# Python & Build
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.cache/
+
+# Virtual Environments
+.venv/
+.venv*/
+env/
+venv/
+ENV/
+
+# Models & Weights (only root-level cache folder, NOT source code packages)
+/models/
+!gdr/models/
+!gdr/models/*.py
+!blockbrain/models/
+!blockbrain/models/*.py
+!frontend/lib/models/
+!frontend/lib/models/**
+*.onnx
+*.bin
+*.safetensors
+piper_models/
+
+# Media & Recorded Audio
+*.wav
+*.mp3
+*.ogg
+*.flac
+*.webm
+*.png
+*.jpg
+*.jpeg
+screenshots/*
+!screenshots/.gitkeep
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*~

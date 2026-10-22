@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" width="100%" height="100%">
+  <defs>
+    <radialGradient id="eyeGradAarushi" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </radialGradient>
+    <linearGradient id="hairGradAarushi" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5a2e1d"/>
+      <stop offset="40%" stop-color="#451a03"/>
+      <stop offset="100%" stop-color="#2c1002"/>
+    </linearGradient>
+    <linearGradient id="skinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff5ed"/>
+      <stop offset="100%" stop-color="#fde8d7"/>
+    </linearGradient>
+    <linearGradient id="clothGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#be123c"/>
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient Character Soft Halo -->
+  <circle cx="200" cy="220" r="160" fill="url(#skinGrad)" opacity="0.08"/>
+
+  <!-- Back Hair -->
+  <path d="M 120 160 C 90 230, 80 340, 95 400 C 120 370, 135 320, 140 280 L 260 280 C 265 320, 280 370, 305 400 C 320 340, 310 230, 280 160 Z" fill="url(#hairGradAarushi)"/>
+
+  <!-- Neck & Shoulders -->
+  <path d="M 175 290 L 175 330 C 130 345, 90 380, 70 440 L 330 440 C 310 380, 270 345, 225 330 L 225 290 Z" fill="url(#clothGrad)"/>
+  <!-- Cardigan Collar & Ribbon -->
+  <path d="M 175 290 L 200 340 L 225 290 Z" fill="url(#skinGrad)"/>
+  <path d="M 180 340 C 185 360, 175 380, 165 395 C 190 385, 200 365, 200 350 C 200 365, 210 385, 235 395 C 225 380, 215 360, 220 340 Z" fill="#ffffff" opacity="0.95"/>
+  <circle cx="200" cy="345" r="7" fill="#fbbf24"/>
+
+  <!-- Head Base -->
+  <path d="M 130 200 C 125 260, 160 315, 200 315 C 240 315, 275 260, 270 200 C 268 140, 132 140, 130 200 Z" fill="url(#skinGrad)"/>
+
+  <!-- Cute Ears -->
+  <ellipse cx="128" cy="235" rx="9" ry="15" fill="#fde8d7"/>
+  <ellipse cx="272" cy="235" rx="9" ry="15" fill="#fde8d7"/>
+
+  <!-- Soft Blush Cheeks -->
+  <ellipse cx="148" cy="254" rx="14" ry="7" fill="#fb7185" opacity="0.4" filter="url(#softGlow)"/>
+  <ellipse cx="252" cy="254" rx="14" ry="7" fill="#fb7185" opacity="0.4" filter="url(#softGlow)"/>
+
+  <!-- Tiny Cute Nose -->
+  <circle cx="200" cy="265" r="2" fill="#be123c" opacity="0.4"/>
+
+  <!-- Dynamic Eyes -->
+  <g id="aarushi-eyes-left">
+    
+            <ellipse cx="163" cy="220" rx="14" ry="20" fill="#78350f"/>
+            <ellipse cx="163" cy="222" rx="12" ry="16" fill="url(#eyeGradAarushi)"/>
+            <circle cx="159" cy="213" r="4.5" fill="#ffffff"/>
+            <path d="M 143 198 Q 160 196 178 204" stroke="#451a03" stroke-width="4" fill="none" stroke-linecap="round"/>
+        
+  </g>
+  <g id="aarushi-eyes-right">
+    
+            <ellipse cx="243" cy="220" rx="14" ry="20" fill="#78350f"/>
+            <ellipse cx="243" cy="222" rx="12" ry="16" fill="url(#eyeGradAarushi)"/>
+            <circle cx="239" cy="213" r="4.5" fill="#ffffff"/>
+            <path d="M 222 204 Q 240 196 257 198" stroke="#451a03" stroke-width="4" fill="none" stroke-linecap="round"/>
+        
+  </g>
+
+  <!-- Dynamic Mouth -->
+  <g id="aarushi-mouth">
+    <path d="M 192 285 Q 200 280 208 285" stroke="#be123c" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Front Hair & Bangs -->
+  <path d="M 125 185 C 135 150, 165 130, 200 130 C 235 130, 265 150, 275 185 C 285 220, 280 260, 278 280 C 270 240, 260 210, 255 200 C 245 225, 230 245, 220 250 C 215 220, 205 200, 200 200 C 195 200, 185 220, 180 250 C 170 245, 155 225, 145 200 C 140 210, 130 240, 122 280 C 120 260, 115 220, 125 185 Z" fill="url(#hairGradAarushi)"/>
+
+  <!-- Sakura Hairpin Accessory -->
+  <g transform="translate(252, 175) scale(0.75)">
+    <circle cx="0" cy="-12" r="8" fill="#fda4af"/>
+    <circle cx="11" cy="-4" r="8" fill="#fda4af"/>
+    <circle cx="7" cy="10" r="8" fill="#fda4af"/>
+    <circle cx="-7" cy="10" r="8" fill="#fda4af"/>
+    <circle cx="-11" cy="-4" r="8" fill="#fda4af"/>
+    <circle cx="0" cy="0" r="5" fill="#fef08a"/>
+  </g>
+</svg>

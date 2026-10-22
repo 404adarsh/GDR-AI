@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" width="100%" height="100%">
+  <defs>
+    <radialGradient id="eyeGradKenji" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="50%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </radialGradient>
+    <linearGradient id="hairGradKenji" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="60%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="kenjiSkin" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff7ed"/>
+      <stop offset="100%" stop-color="#fed7aa"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Neck & Casual Jacket -->
+  <path d="M 175 290 L 175 330 C 130 345, 90 380, 70 440 L 330 440 C 310 380, 270 345, 225 330 L 225 290 Z" fill="#1e293b"/>
+  <path d="M 175 290 L 200 335 L 225 290 Z" fill="url(#kenjiSkin)"/>
+  <path d="M 195 335 L 195 440 L 205 440 L 205 335 Z" fill="#10b981"/>
+
+  <!-- Head Base -->
+  <path d="M 130 195 C 125 260, 160 315, 200 315 C 240 315, 275 260, 270 195 C 268 135, 132 135, 130 195 Z" fill="url(#kenjiSkin)"/>
+
+  <!-- Ears -->
+  <ellipse cx="128" cy="235" rx="9" ry="15" fill="#fed7aa"/>
+  <ellipse cx="272" cy="235" rx="9" ry="15" fill="#fed7aa"/>
+
+  <!-- Soft Cheek Flush -->
+  <ellipse cx="148" cy="254" rx="12" ry="6" fill="#f43f5e" opacity="0.25"/>
+  <ellipse cx="252" cy="254" rx="12" ry="6" fill="#f43f5e" opacity="0.25"/>
+
+  <!-- Nose -->
+  <circle cx="200" cy="265" r="2.5" fill="#047857" opacity="0.4"/>
+
+  <!-- Dynamic Eyes -->
+  <g id="kenji-eyes-left"><ellipse cx="160" cy="223" rx="15" ry="21" fill="#064e3b"/><ellipse cx="160" cy="225" rx="13" ry="17" fill="url(#eyeGradKenji)"/><circle cx="156" cy="215" r="5" fill="#ffffff"/></g>
+  <g id="kenji-eyes-right"><ellipse cx="240" cy="223" rx="15" ry="21" fill="#064e3b"/><ellipse cx="240" cy="225" rx="13" ry="17" fill="url(#eyeGradKenji)"/><circle cx="236" cy="215" r="5" fill="#ffffff"/></g>
+
+  <!-- Dynamic Mouth -->
+  <g id="kenji-mouth"><path d="M 191 284 Q 202 292 213 284" stroke="#065f46" stroke-width="3" fill="none" stroke-linecap="round"/></g>
+
+  <!-- Stylish Short Hair -->
+  <path d="M 125 185 C 130 140, 160 120, 200 120 C 240 120, 270 140, 275 185 C 285 205, 280 230, 275 245 C 270 215, 260 195, 255 185 C 245 205, 235 220, 225 225 C 218 200, 205 185, 200 185 C 195 185, 185 200, 178 225 C 170 220, 155 205, 145 185 C 140 195, 130 215, 125 245 C 120 230, 115 205, 125 185 Z" fill="url(#hairGradKenji)"/>
+</svg>

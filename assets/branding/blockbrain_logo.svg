@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <defs>
+    <!-- Cyan / Electric Blue Gradient -->
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F2FE" />
+      <stop offset="100%" stop-color="#4FACFE" />
+    </linearGradient>
+
+    <!-- Glow Effect Filter -->
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="30" result="blur" />
+    </filter>
+  </defs>
+
+  <!-- Solid Premium Dark Background -->
+  <rect width="800" height="800" fill="#0B0E14" />
+
+  <!-- Centered Content Group -->
+  <g transform="translate(400, 400)">
+    <!-- Soft Ambient Cyberpunk Glow Behind Core -->
+    <circle cx="0" cy="0" r="170" fill="#00F2FE" opacity="0.12" filter="url(#softGlow)" />
+
+    <!-- Outer Tech Circuit Grid / Brain Outline -->
+    <g fill="none" stroke="#00F2FE" stroke-width="2.5" opacity="0.7" stroke-linecap="round">
+      <!-- Neural circuit nodes left -->
+      <path fill="none" d="M-120,-40 L-180,-30 L-220,10 L-200,80 L-140,140 L-60,160" />
+      <path fill="none" d="M-180,-30 L-140,20 L-140,90" />
+      <path fill="none" d="M-220,10 L-160,50" />
+      
+      <!-- Neural circuit nodes right -->
+      <path fill="none" d="M120,-40 L180,-30 L220,10 L200,80 L140,140 L60,160" />
+      <path fill="none" d="M180,-30 L140,20 L140,90" />
+      <path fill="none" d="M220,10 L160,50" />
+    </g>
+
+    <!-- Circuit Connection Dots (Glowing Nodes) -->
+    <g fill="#00F2FE" filter="url(#glow)">
+      <circle cx="-180" cy="-30" r="5" />
+      <circle cx="-220" cy="10" r="5" />
+      <circle cx="-200" cy="80" r="5" />
+      <circle cx="-140" cy="140" r="5" />
+      <circle cx="-140" cy="20" r="4" />
+      <circle cx="-60" cy="160" r="4.5" />
+      
+      <circle cx="180" cy="-30" r="5" />
+      <circle cx="220" cy="10" r="5" />
+      <circle cx="200" cy="80" r="5" />
+      <circle cx="140" cy="140" r="5" />
+      <circle cx="140" cy="20" r="4" />
+      <circle cx="60" cy="160" r="4.5" />
+    </g>
+
+    <!-- Data lines linking blocks to neural net -->
+    <g fill="none">
+      <path fill="none" d="M-43,-45 L-120,-40" stroke="#00F2FE" stroke-width="2" stroke-dasharray="4,4" filter="url(#glow)" />
+      <path fill="none" d="M43,-45 L120,-40" stroke="#00F2FE" stroke-width="2" stroke-dasharray="4,4" filter="url(#glow)" />
+      <path fill="none" d="M-95,0.5 L-180,-30" stroke="#00F2FE" stroke-width="1.5" />
+      <path fill="none" d="M95,0.5 L180,-30" stroke="#00F2FE" stroke-width="1.5" />
+    </g>
+
+    <!-- Central Isometric Blocks (The BlockBrain Architecture) -->
+    <!-- 1. Top Cube -->
+    <g transform="translate(0, -110)">
+      <path d="M0,-50 L43,-25 L0,0 L-43,-25 Z" fill="#00F2FE" opacity="0.95" filter="url(#glow)"/>
+      <path d="M-43,-25 L0,0 L0,50 L-43,25 Z" fill="#04A3E7" />
+      <path d="M0,0 L43,-25 L43,25 L0,50 Z" fill="#0272C3" />
+    </g>
+
+    <!-- 2. Bottom Cube -->
+    <g transform="translate(0, 100)">
+      <path d="M0,-50 L43,-25 L0,0 L-43,-25 Z" fill="#1C2638" stroke="#00F2FE" stroke-width="1.5" />
+      <path d="M-43,-25 L0,0 L0,50 L-43,25 Z" fill="#0D1117" stroke="#00F2FE" stroke-width="1.5" />
+      <path d="M0,0 L43,-25 L43,25 L0,50 Z" fill="#161B22" stroke="#00F2FE" stroke-width="1.5" />
+    </g>
+
+    <!-- 3. Left Cube -->
+    <g transform="translate(-52, -10)">
+      <path d="M0,-50 L43,-25 L0,0 L-43,-25 Z" fill="#1C2638" stroke="#00F2FE" stroke-width="1.8" />
+      <path d="M-43,-25 L0,0 L0,50 L-43,25 Z" fill="#111827" stroke="#00F2FE" stroke-width="1.8" />
+      <path d="M0,0 L43,-25 L43,25 L0,50 Z" fill="#0D1117" stroke="#00F2FE" stroke-width="1.8" />
+    </g>
+
+    <!-- 4. Right Cube -->
+    <g transform="translate(52, -10)">
+      <path d="M0,-50 L43,-25 L0,0 L-43,-25 Z" fill="#1C2638" stroke="#00F2FE" stroke-width="1.8" />
+      <path d="M-43,-25 L0,0 L0,50 L-43,25 Z" fill="#0D1117" stroke="#00F2FE" stroke-width="1.8" />
+      <path d="M0,0 L43,-25 L43,25 L0,50 Z" fill="#111827" stroke="#00F2FE" stroke-width="1.8" />
+    </g>
+
+    <!-- 5. Center Core Glowing Cube (The Brain Core - Floating On Top) -->
+    <g transform="translate(0, 15)">
+      <path d="M0,-50 L43,-25 L0,0 L-43,-25 Z" fill="#00F2FE" filter="url(#glow)"/>
+      <path d="M-43,-25 L0,0 L0,50 L-43,25 Z" fill="#00C6FF" />
+      <path d="M0,0 L43,-25 L43,25 L0,50 Z" fill="#0072FF" />
+    </g>
+  </g>
+</svg>

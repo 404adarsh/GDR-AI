@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlockBrain // Code Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0B0E14;
+      --bg-surface: #111622;
+      --bg-sidebar: #0D111A;
+      --bg-active: #161D2A;
+      --border-color: #1E2638;
+      --border-focus: #00F2FE;
+      --text-main: #E2E8F0;
+      --text-muted: #8892B0;
+      --text-dim: #4A5568;
+      --cyan-bright: #00F2FE;
+      --cyan-blue: #4FACFE;
+      --accent-green: #38EF7D;
+      --accent-red: #FF5370;
+      --accent-amber: #FFB86C;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 13px;
+    }
+
+    #app-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* --- TOP TITLE & CONTROL BAR --- */
+    #title-bar {
+      height: 42px;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 10;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 22px;
+      height: 22px;
+      background: linear-gradient(135deg, var(--cyan-bright), var(--cyan-blue));
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-weight: 800;
+      font-size: 11px;
+      box-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
+    }
+
+    .brand-title {
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.8px;
+      background: linear-gradient(90deg, #FFFFFF, var(--cyan-bright));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .project-badge {
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.25);
+      color: var(--cyan-bright);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .action-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      height: 28px;
+      background: var(--bg-active);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 0 10px;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .btn svg {
+      width: 13px;
+      height: 13px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    .btn:hover {
+      background: #1C2436;
+      border-color: var(--cyan-bright);
+      color: #FFFFFF;
+      box-shadow: 0 0 8px rgba(0, 242, 254, 0.2);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00C6FF, #0072FF);
+      color: #FFFFFF;
+      border: none;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 12px rgba(0, 198, 255, 0.4);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #11998E, #38EF7D);
+      color: #0B0E14;
+      border: none;
+      font-weight: 700;
+    }
+
+    .btn-danger {
+      background: rgba(255, 83, 112, 0.15);
+      border: 1px solid rgba(255, 83, 112, 0.4);
+      color: var(--accent-red);
+    }
+
+    .btn-danger:hover {
+      background: var(--accent-red);
+      color: #FFFFFF;
+    }
+
+    /* --- WORKSPACE LAYOUT (SIDEBAR + RESIZER + EDITOR) --- */
+    #workspace-body {
+      display: flex;
+      flex: 1;
+      height: calc(100% - 66px);
+      position: relative;
+    }
+
+    /* SIDEBAR */
+    #sidebar {
+      width: 240px;
+      min-width: 160px;
+      max-width: 600px;
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    /* EXPLORER SPLITTER DRAG HANDLE */
+    #sidebar-resizer {
+      width: 5px;
+      cursor: col-resize;
+      background: transparent;
+      position: relative;
+      z-index: 20;
+      flex-shrink: 0;
+      transition: background 0.15s ease;
+    }
+
+    #sidebar-resizer:hover, #sidebar-resizer.dragging {
+      background: var(--cyan-bright);
+      box-shadow: 0 0 8px rgba(0, 242, 254, 0.6);
+    }
+
+    #sidebar-resizer::after {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 24px;
+      background: var(--border-color);
+    }
+
+    .sidebar-header {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sidebar-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .search-box {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 6px 10px;
+      color: var(--text-main);
+      font-size: 12px;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--cyan-bright);
+    }
+
+    #file-tree-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 6px 0;
+    }
+
+    .tree-item {
+      display: flex;
+      align-items: center;
+      padding: 4px 14px;
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      gap: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tree-item:hover {
+      background: var(--bg-active);
+      color: var(--text-main);
+    }
+
+    .tree-item.active {
+      background: rgba(0, 242, 254, 0.12);
+      color: var(--cyan-bright);
+      border-left: 2px solid var(--cyan-bright);
+    }
+
+    .item-icon {
+      font-size: 13px;
+      opacity: 0.85;
+    }
+
+    /* MAIN EDITING AREA */
+    #editor-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-dark);
+      position: relative;
+    }
+
+    /* TABS */
+    #tab-bar {
+      height: 36px;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    .tab {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      border-right: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      gap: 8px;
+      position: relative;
+    }
+
+    .tab.active {
+      background: var(--bg-dark);
+      color: #FFFFFF;
+      border-top: 2px solid var(--cyan-bright);
+    }
+
+    .tab .tab-close {
+      opacity: 0.6;
+      border-radius: 50%;
+      padding: 2px;
+    }
+
+    .tab .tab-close:hover {
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .tab.unsaved::after {
+      content: "•";
+      color: var(--cyan-bright);
+      font-size: 16px;
+      margin-left: -2px;
+    }
+
+    /* MONACO CONTAINERS */
+    #editor-stage {
+      flex: 1;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    #monaco-editor {
+      width: 100%;
+      height: 100%;
+    }
+
+    #monaco-diff-editor {
+      width: 100%;
+      height: 100%;
+      display: none;
+    }
+
+    /* DIFF APPROVAL FLOATING BANNER */
+    #diff-banner {
+      display: none;
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(17, 22, 34, 0.94);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--cyan-bright);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 242, 254, 0.25);
+      border-radius: 8px;
+      padding: 10px 18px;
+      z-index: 100;
+      align-items: center;
+      gap: 16px;
+      animation: slideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideDown {
+      from { transform: translate(-50%, -20px); opacity: 0; }
+      to { transform: translate(-50%, 0); opacity: 1; }
+    }
+
+    .diff-badge {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--cyan-bright);
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .diff-badge .pulse {
+      width: 8px;
+      height: 8px;
+      background: var(--cyan-bright);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--cyan-bright);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.4; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0.4; transform: scale(0.9); }
+    }
+
+    .diff-file-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #FFFFFF;
+      background: var(--bg-active);
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+    }
+
+    /* STATUS BAR */
+    #status-bar {
+      height: 24px;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-green);
+    }
+  </style>
+</head>
+<body>
+  <div id="app-container">
+    <!-- TOP HEADER -->
+    <header id="title-bar">
+      <div class="brand-section">
+        <div class="brand-logo">B</div>
+        <span class="brand-title">BLOCKBRAIN // STUDIO</span>
+        <div id="project-badge" class="project-badge">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          <span id="project-name">Loading...</span>
+        </div>
+      </div>
+
+      <div class="action-group">
+        <button id="btn-save" class="btn" title="Save File (Ctrl+S)">
+          <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+          Save
+        </button>
+        <button id="btn-new" class="btn" title="Create New File">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          New File
+        </button>
+        <button id="btn-refresh" class="btn" title="Reload Workspace Tree">
+          <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+          Refresh
+        </button>
+      </div>
+    </header>
+
+    <!-- WORKSPACE -->
+    <div id="workspace-body">
+      <!-- SIDEBAR -->
+      <aside id="sidebar">
+        <div class="sidebar-header">
+          <span class="sidebar-title">Explorer</span>
+          <span id="file-count" style="font-size: 11px; color: var(--text-dim);">0 files</span>
+        </div>
+        <div class="search-box">
+          <input type="text" id="filter-input" class="search-input" placeholder="Filter files (name / ext)...">
+        </div>
+        <div id="file-tree-container"></div>
+      </aside>
+
+      <!-- EXPLORER RESIZER DRAG HANDLE -->
+      <div id="sidebar-resizer" title="Drag to resize Explorer"></div>
+
+      <!-- EDITOR STAGE -->
+      <main id="editor-main">
+        <nav id="tab-bar"></nav>
+        <div id="editor-stage">
+          <div id="monaco-editor"></div>
+          <div id="monaco-diff-editor"></div>
+
+          <!-- FLOATING DIFF APPROVAL BANNER -->
+          <div id="diff-banner">
+            <div class="diff-badge">
+              <div class="pulse"></div>
+              <span>AGENT PROPOSED CODE EDIT // APPROVAL REQUIRED</span>
+            </div>
+            <div id="diff-filename" class="diff-file-label">path/to/file.py</div>
+            <button id="btn-approve-diff" class="btn btn-success">
+              ✓ Approve & Apply
+            </button>
+            <button id="btn-deny-diff" class="btn btn-danger">
+              ✕ Deny
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- STATUS BAR -->
+    <footer id="status-bar">
+      <div class="status-item">
+        <div class="status-dot"></div>
+        <span id="connection-status">Live Bridge Connected</span>
+      </div>
+      <div style="display: flex; gap: 16px;">
+        <span id="cursor-pos">Ln 1, Col 1</span>
+        <span id="lang-indicator">Plain Text</span>
+        <span>UTF-8</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- MONACO EDITOR LOCAL LOADER -->
+  <script src="/static/monaco/vs/loader.js"></script>
+  <script>
+    // --- SESSION TOKEN & CONFIG ---
+    let SESSION_TOKEN = window.__BLOCKBRAIN_SESSION_TOKEN || "";
+    if (!SESSION_TOKEN) {
+      SESSION_TOKEN = localStorage.getItem("blockbrain_session_token") || "";
+    }
+
+    // Configure Monaco Loader path
+    require.config({ paths: { vs: '/static/monaco/vs' } });
+
+    let editorInstance = null;
+    let diffEditorInstance = null;
+    let openTabs = []; // { path, name, content, originalContent, isDirty, model }
+    let activeTabPath = null;
+    let activeDiffApproval = null; // { id, nonce, path, original, proposed }
+
+    // --- MONACO INITIALIZATION ---
+    require(['vs/editor/editor.main'], function() {
+      // Define BlockBrain Ultra-Dark Theme
+      monaco.editor.defineTheme('blockbrain-dark', {
+        base: 'vs-dark',
+        inherit: true,
+        rules: [
+          { token: 'comment', foreground: '5C6773', fontStyle: 'italic' },
+          { token: 'keyword', foreground: '00F2FE', fontStyle: 'bold' },
+          { token: 'identifier', foreground: 'E2E8F0' },
+          { token: 'string', foreground: '38EF7D' },
+          { token: 'number', foreground: 'FFB86C' },
+          { token: 'type', foreground: '4FACFE' },
+        ],
+        colors: {
+          'editor.background': '#0B0E14',
+          'editor.foreground': '#E2E8F0',
+          'editorCursor.foreground': '#00F2FE',
+          'editor.lineHighlightBackground': '#121824',
+          'editorLineNumber.foreground': '#4A5568',
+          'editorLineNumber.activeForeground': '#00F2FE',
+          'editorIndentGuide.background': '#1A2333',
+          'editorIndentGuide.activeBackground': '#00F2FE',
+          'editor.selectionBackground': '#1E3A5F',
+        }
+      });
+
+      // Initialize standard editor
+      editorInstance = monaco.editor.create(document.getElementById('monaco-editor'), {
+        theme: 'blockbrain-dark',
+        fontSize: 13,
+        fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+        automaticLayout: true,
+        minimap: { enabled: true, renderCharacters: false },
+        scrollBeyondLastLine: false,
+        renderLineHighlight: 'all',
+        tabSize: 4,
+        detectIndentation: true,
+      });
+
+      // Initialize diff editor
+      diffEditorInstance = monaco.editor.createDiffEditor(document.getElementById('monaco-diff-editor'), {
+        theme: 'blockbrain-dark',
+        fontSize: 13,
+        fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+        automaticLayout: true,
+        readOnly: true,
+        renderSideBySide: true,
+        scrollBeyondLastLine: false,
+      });
+
+      // Cursor position tracker
+      editorInstance.onDidChangeCursorPosition(e => {
+        document.getElementById('cursor-pos').textContent = `Ln ${e.position.lineNumber}, Col ${e.position.column}`;
+      });
+
+      // Content change listener for dirty state
+      editorInstance.onDidChangeModelContent(() => {
+        if (!activeTabPath) return;
+        const currentTab = openTabs.find(t => t.path === activeTabPath);
+        if (currentTab) {
+          const val = editorInstance.getValue();
+          if (val !== currentTab.originalContent) {
+            currentTab.isDirty = true;
+          } else {
+            currentTab.isDirty = false;
+          }
+          renderTabs();
+        }
+      });
+
+      // Keyboard shortcuts: Ctrl+S Save
+      editorInstance.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
+        saveActiveFile();
+      });
+
+      // Load initial workspace
+      loadWorkspaceTree();
+      initWebSocketBridge();
+    });
+
+    // --- API CLIENT (HEADER AUTH ONLY) ---
+    async function apiFetch(endpoint, options = {}) {
+      const headers = options.headers || {};
+      headers['X-Session-Token'] = SESSION_TOKEN;
+      if (options.body && typeof options.body === 'object') {
+        headers['Content-Type'] = 'application/json';
+        options.body = JSON.stringify(options.body);
+      }
+      const resp = await fetch(endpoint, { ...options, headers });
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({ detail: resp.statusText }));
+        throw new Error(err.detail || err.error || `HTTP ${resp.status}`);
+      }
+      return resp.json();
+    }
+
+    // --- WORKSPACE & FILE EXPLORER ---
+    let allTreeFiles = [];
+
+    async function loadWorkspaceTree() {
+      try {
+        const data = await apiFetch('/api/editor/tree');
+        document.getElementById('project-name').textContent = data.root || 'Workspace';
+        const container = document.getElementById('file-tree-container');
+        container.innerHTML = '';
+        allTreeFiles = [];
+
+        const SVG_FOLDER_CLOSED = `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#4FACFE" stroke-width="2" style="vertical-align: middle;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>`;
+        const SVG_FOLDER_OPEN = `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#00F2FE" stroke-width="2" style="vertical-align: middle;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/><path d="M2 10h20"/></svg>`;
+
+        function renderNodes(nodes, level = 0) {
+          nodes.forEach(node => {
+            const row = document.createElement('div');
+            row.className = 'tree-item';
+            row.style.paddingLeft = `${14 + level * 14}px`;
+            
+            const icon = node.type === 'directory' ? SVG_FOLDER_CLOSED : getFileIcon(node.name);
+            row.innerHTML = `<span class="item-icon">${icon}</span><span>${node.name}</span>`;
+
+            if (node.type === 'file') {
+              allTreeFiles.push(node);
+              row.onclick = () => openFile(node.path);
+            } else if (node.type === 'directory') {
+              const childContainer = document.createElement('div');
+              childContainer.style.display = 'block';
+              row.onclick = () => {
+                const isHidden = childContainer.style.display === 'none';
+                childContainer.style.display = isHidden ? 'block' : 'none';
+                row.querySelector('.item-icon').innerHTML = isHidden ? SVG_FOLDER_CLOSED : SVG_FOLDER_OPEN;
+              };
+              container.appendChild(row);
+              if (node.children) {
+                renderNodes(node.children, level + 1);
+              }
+              return;
+            }
+            container.appendChild(row);
+          });
+        }
+
+        renderNodes(data.tree || []);
+        document.getElementById('file-count').textContent = `${allTreeFiles.length} files`;
+        if (openTabs.length === 0 && allTreeFiles.length > 0) {
+          const target = allTreeFiles.find(f => f.name === 'agent.py') || allTreeFiles[0];
+          if (target) {
+            openFile(target.path);
+          }
+        }
+      } catch (e) {
+        console.error('Failed to load tree:', e);
+      }
+    }
+
+    function getFileIcon(filename) {
+      if (filename.endsWith('.dart')) {
+        return `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#00F2FE" stroke-width="2" style="vertical-align: middle;"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon></svg>`;
+      }
+      if (filename.endsWith('.py')) {
+        return `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#38EF7D" stroke-width="2" style="vertical-align: middle;"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>`;
+      }
+      if (filename.endsWith('.js') || filename.endsWith('.ts')) {
+        return `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#FFD54F" stroke-width="2" style="vertical-align: middle;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>`;
+      }
+      if (filename.endsWith('.html') || filename.endsWith('.css')) {
+        return `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#00F2FE" stroke-width="2" style="vertical-align: middle;"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>`;
+      }
+      if (filename.endsWith('.json') || filename.endsWith('.yaml') || filename.endsWith('.yml')) {
+        return `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#FFB86C" stroke-width="2" style="vertical-align: middle;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>`;
+      }
+      return `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#8892B0" stroke-width="2" style="vertical-align: middle;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>`;
+    }
+
+    function getLanguageFromPath(path) {
+      const ext = path.split('.').pop().toLowerCase();
+      switch(ext) {
+        case 'dart': return 'dart';
+        case 'py': return 'python';
+        case 'js': return 'javascript';
+        case 'ts': return 'typescript';
+        case 'html': return 'html';
+        case 'css': return 'css';
+        case 'json': return 'json';
+        case 'yaml': case 'yml': return 'yaml';
+        case 'sh': case 'bash': return 'shell';
+        case 'md': return 'markdown';
+        default: return 'plaintext';
+      }
+    }
+
+    // --- FILE OPEN & TAB MANAGEMENT ---
+    async function openFile(filePath) {
+      // If already open, switch to it
+      const existing = openTabs.find(t => t.path === filePath);
+      if (existing) {
+        switchTab(filePath);
+        return;
+      }
+
+      try {
+        const fileData = await apiFetch(`/api/editor/file?path=${encodeURIComponent(filePath)}`);
+        const lang = getLanguageFromPath(filePath);
+        const model = monaco.editor.createModel(fileData.content, lang);
+
+        const tab = {
+          path: filePath,
+          name: filePath.split('/').pop(),
+          content: fileData.content,
+          originalContent: fileData.content,
+          isDirty: false,
+          model: model
+        };
+
+        openTabs.push(tab);
+        renderTabs();
+        switchTab(filePath);
+      } catch (e) {
+        alert(`Failed to open ${filePath}: ${e.message}`);
+      }
+    }
+
+    function switchTab(filePath) {
+      activeTabPath = filePath;
+      const tab = openTabs.find(t => t.path === filePath);
+      if (!tab) return;
+
+      // Ensure normal editor is active and diff editor hidden
+      document.getElementById('monaco-editor').style.display = 'block';
+      document.getElementById('monaco-diff-editor').style.display = 'none';
+      document.getElementById('diff-banner').style.display = 'none';
+
+      editorInstance.setModel(tab.model);
+      document.getElementById('lang-indicator').textContent = tab.model.getLanguageId().toUpperCase();
+
+      renderTabs();
+      highlightActiveTreeItem(filePath);
+    }
+
+    function closeTab(filePath, event) {
+      if (event) event.stopPropagation();
+      const tabIndex = openTabs.findIndex(t => t.path === filePath);
+      if (tabIndex === -1) return;
+
+      const tab = openTabs[tabIndex];
+      if (tab.isDirty && !confirm(`Discard unsaved changes to ${tab.name}?`)) {
+        return;
+      }
+
+      tab.model.dispose();
+      openTabs.splice(tabIndex, 1);
+
+      if (activeTabPath === filePath) {
+        if (openTabs.length > 0) {
+          const nextTab = openTabs[Math.max(0, tabIndex - 1)];
+          switchTab(nextTab.path);
+        } else {
+          activeTabPath = null;
+          editorInstance.setModel(null);
+          document.getElementById('lang-indicator').textContent = 'None';
+        }
+      }
+      renderTabs();
+    }
+
+    function renderTabs() {
+      const bar = document.getElementById('tab-bar');
+      bar.innerHTML = '';
+      openTabs.forEach(tab => {
+        const el = document.createElement('div');
+        el.className = `tab ${tab.path === activeTabPath ? 'active' : ''} ${tab.isDirty ? 'unsaved' : ''}`;
+        el.innerHTML = `
+          <span>${getFileIcon(tab.name)}</span>
+          <span>${tab.name}</span>
+          <span class="tab-close" onclick="closeTab('${tab.path}', event)">×</span>
+        `;
+        el.onclick = () => switchTab(tab.path);
+        bar.appendChild(el);
+      });
+    }
+
+    function highlightActiveTreeItem(filePath) {
+      document.querySelectorAll('.tree-item').forEach(el => {
+        el.classList.remove('active');
+        if (el.textContent.includes(filePath.split('/').pop())) {
+          el.classList.add('active');
+        }
+      });
+    }
+
+    // --- SAVE ACTION ---
+    async function saveActiveFile() {
+      if (!activeTabPath) return;
+      const tab = openTabs.find(t => t.path === activeTabPath);
+      if (!tab) return;
+
+      const content = editorInstance.getValue();
+      try {
+        await apiFetch('/api/editor/save', {
+          method: 'POST',
+          body: { path: tab.path, content: content }
+        });
+        tab.originalContent = content;
+        tab.isDirty = false;
+        renderTabs();
+        showToast(`Saved ${tab.name} successfully!`);
+      } catch (e) {
+        alert(`Save failed: ${e.message}`);
+      }
+    }
+
+    // --- WEBSOCKET REAL-TIME DIFF APPROVAL ---
+    function initWebSocketBridge() {
+      const wsUrl = `ws://${window.location.hostname || '127.0.0.1'}:8844/ws`;
+      let ws = new WebSocket(wsUrl);
+
+      ws.onopen = () => {
+        document.getElementById('connection-status').textContent = 'Live Bridge Connected';
+        document.querySelector('.status-dot').style.background = '#38EF7D';
+      };
+
+      ws.onmessage = (event) => {
+        try {
+          const msg = JSON.parse(event.data);
+          if (msg.event === 'file_edit_approval_required' || msg.type === 'file_edit_approval_required') {
+            handleDiffApprovalRequired(msg.data);
+          }
+        } catch (e) {
+          console.error('WS Parse error:', e);
+        }
+      };
+
+      ws.onclose = () => {
+        document.getElementById('connection-status').textContent = 'Live Bridge Disconnected';
+        document.querySelector('.status-dot').style.background = '#FF5370';
+        setTimeout(initWebSocketBridge, 2000);
+      };
+    }
+
+    function handleDiffApprovalRequired(data) {
+      activeDiffApproval = {
+        id: data.id,
+        nonce: data.ui_nonce,
+        path: data.file_path,
+        original: data.original_content || "",
+        proposed: data.proposed_content || ""
+      };
+
+      // Switch stage to side-by-side diff editor
+      document.getElementById('monaco-editor').style.display = 'none';
+      const diffContainer = document.getElementById('monaco-diff-editor');
+      diffContainer.style.display = 'block';
+
+      const lang = getLanguageFromPath(data.file_path);
+      const originalModel = monaco.editor.createModel(data.original_content || "", lang);
+      const proposedModel = monaco.editor.createModel(data.proposed_content || "", lang);
+
+      diffEditorInstance.setModel({
+        original: originalModel,
+        modified: proposedModel
+      });
+
+      // Show banner
+      document.getElementById('diff-filename').textContent = data.file_path.split('/').pop();
+      document.getElementById('diff-banner').style.display = 'flex';
+    }
+
+    document.getElementById('btn-approve-diff').onclick = async () => {
+      if (!activeDiffApproval) return;
+      try {
+        await apiFetch('/api/editor/apply_diff', {
+          method: 'POST',
+          body: {
+            approval_id: activeDiffApproval.id,
+            ui_nonce: activeDiffApproval.nonce,
+            action: 'allow_once'
+          }
+        });
+
+        // Close diff view
+        document.getElementById('diff-banner').style.display = 'none';
+        document.getElementById('monaco-diff-editor').style.display = 'none';
+        document.getElementById('monaco-editor').style.display = 'block';
+
+        // Reopen or refresh active file tab with newly applied content
+        openFile(activeDiffApproval.path);
+        activeDiffApproval = null;
+        showToast('Diff Approved & Applied cleanly!');
+      } catch (e) {
+        alert(`Failed to apply diff: ${e.message}`);
+      }
+    };
+
+    document.getElementById('btn-deny-diff').onclick = async () => {
+      if (!activeDiffApproval) return;
+      try {
+        await apiFetch('/api/terminal/approve', {
+          method: 'POST',
+          body: {
+            approval_id: activeDiffApproval.id,
+            ui_nonce: activeDiffApproval.nonce,
+            action: 'deny'
+          }
+        });
+      } catch (e) {
+        console.warn('Deny signal error:', e);
+      }
+      document.getElementById('diff-banner').style.display = 'none';
+      document.getElementById('monaco-diff-editor').style.display = 'none';
+      document.getElementById('monaco-editor').style.display = 'block';
+      activeDiffApproval = null;
+    };
+
+    document.getElementById('btn-save').onclick = saveActiveFile;
+    document.getElementById('btn-refresh').onclick = loadWorkspaceTree;
+
+    // --- EXPLORER SIDEBAR RESIZER (LOCALSTORAGE PERSISTENCE) ---
+    const explorerSidebar = document.getElementById('sidebar');
+    const explorerResizer = document.getElementById('sidebar-resizer');
+    const savedExplorerWidth = localStorage.getItem('blockbrain_explorer_width');
+    if (savedExplorerWidth) {
+      const parsedW = parseInt(savedExplorerWidth, 10);
+      if (parsedW >= 160 && parsedW <= 600) {
+        explorerSidebar.style.width = parsedW + 'px';
+      }
+    }
+
+    let isResizingExplorer = false;
+    explorerResizer.addEventListener('mousedown', (e) => {
+      isResizingExplorer = true;
+      explorerResizer.classList.add('dragging');
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+      e.preventDefault();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isResizingExplorer) return;
+      const newWidth = Math.min(Math.max(160, e.clientX), 600);
+      explorerSidebar.style.width = newWidth + 'px';
+      if (editorInstance) editorInstance.layout();
+      if (diffEditorInstance) diffEditorInstance.layout();
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isResizingExplorer) {
+        isResizingExplorer = false;
+        explorerResizer.classList.remove('dragging');
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+        localStorage.setItem('blockbrain_explorer_width', parseInt(explorerSidebar.style.width, 10));
+      }
+    });
+
+    function showToast(text) {
+      const banner = document.getElementById('diff-banner');
+      console.log('Toast:', text);
+    }
+  </script>
+</body>
+</html>
